@@ -110,9 +110,9 @@ Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
 Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol,[],1);
 
  
-stimpres=Screen('Flip', scr.window,[stimpres+(const.TR/const.drawsperTR)-slack]);
-log_txt=sprintf('Flip at Position %f at %s',trial.locations(i),num2str(etime(clock,startclock)));
-fprintf(log_text_fid,'%s\n',log_txt);
+ stimpres=Screen('Flip', scr.window,[stimpres+(const.TR/const.drawsperTR)-slack]);
+ log_txt=sprintf('Flip at Position %f at %s',trial.locations(i),num2str(etime(clock,startclock)));
+ fprintf(log_text_fid,'%s\n',log_txt);
 
 end
 

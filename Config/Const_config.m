@@ -4,8 +4,8 @@
 
 const.elementsize=0.5;
 const.barwidth=2;
-const.barlength=21;
-const.Nbars=50;
+const.barlength=36;
+const.Nbars=20;
 
 %% Fixation properties
 
