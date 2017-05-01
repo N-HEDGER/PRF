@@ -1,10 +1,10 @@
 
 %% Mode for returning stimuli.
-
-getstimuli=1;
+istest=0;
+getstimuli=0;
 %% Add paths
 
-addpath('Config','Data','Stimuli','Conditions','Conversion');
+addpath('Config','Data','Stimuli','Conditions','Conversion','Hardware');
 
 %% Constants
 
@@ -27,6 +27,16 @@ Make_bars
 %% Pass config
 
 Pass_config
+
+%% Syncbox config
+
+if istest
+   
+else
+     Syncbox_config
+     fopen(s2);
+end
+
 
 
 prompt='subject filename?';
@@ -66,6 +76,11 @@ KbWait(keyboard);
 
  for t=1:length(const.conditions)
 
+if istest
+else
+GETPULSE
+end     
+     
 % Vertical bar, left to right.
 if const.conditions (t,3)==1 && const.conditions (t,4)==1 && const.conditions (t,2)==1
 trial.locations=(const.locationsv);
@@ -96,6 +111,7 @@ trial.stimrect=scr.stimrecth;
 end
 
 %% If real trial
+
 
 if const.conditions (t,2)==1
 stimpres=0;
