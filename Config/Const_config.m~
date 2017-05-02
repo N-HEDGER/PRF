@@ -6,6 +6,10 @@ const.elementsize=0.5;
 const.barwidth=2;
 const.barlength=36;
 const.Nbars=20;
+if getstimuli
+    const.Nbars=1
+else
+end
 
 %% Fixation properties
 
@@ -32,12 +36,17 @@ const.h_period=30;
 const.v_period=42;
 
 const.TR=2;
+
+
 const.smallfixsize=20;
 const.smallerfixsize=10;
 
 const.drawsperTR=5;
 if getstimuli
-    const.const.drawsperTR=1
+    const.drawsperTR=1
 else
 end
 
+%% Properties for drawing stimframes
+
+const.downsize=0.2

@@ -47,3 +47,7 @@ if getstimuli
 else
 end
 
+%% Properties for drawing stimframes
+
+% Scale for downsizing binary stimulus frames
+const.downsize=0.2;

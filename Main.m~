@@ -1,10 +1,10 @@
 
 %% Mode for returning stimuli.
-
+istest=1;
 getstimuli=1;
 %% Add paths
 
-addpath('Config','Data','Stimuli','Conditions','Conversion');
+addpath('Config','Data','Stimuli','Conditions','Conversion','Hardware');
 
 %% Constants
 
@@ -28,12 +28,24 @@ Make_bars
 
 Pass_config
 
+%% Syncbox config
+
+if istest
+   
+else
+     Syncbox_config
+     fopen(s2);
+end
+
+
 
 prompt='subject filename?';
 filename = input(prompt,'s');
 
 % Spit some initial information into a text file.
-log_text=sprintf('Data/%s_log.txt',filename);
+
+mkdir(strcat('Data/',filename))
+log_text=sprintf('Data/%s_log.txt',);
 log_text_fid=fopen(log_text,'a+');
 
 
@@ -66,6 +78,11 @@ KbWait(keyboard);
 
  for t=1:length(const.conditions)
 
+if istest
+else
+GETPULSE
+end     
+     
 % Vertical bar, left to right.
 if const.conditions (t,3)==1 && const.conditions (t,4)==1 && const.conditions (t,2)==1
 trial.locations=(const.locationsv);
@@ -97,7 +114,8 @@ end
 
 %% If real trial
 
-if conditions (t,2)==1
+
+if const.conditions (t,2)==1
 stimpres=0;
 tic
 startclock=clock;
@@ -136,7 +154,7 @@ end
 
 
 if getstimuli
-BARIMAGES{t,i}=Screen('GetImage', scr.window);
+BARIMAGES{i,t}=Screen('GetImage', scr.window);
 else
 end
 log_txt=sprintf('Flip at Position %f at %s',trial.locations(i),num2str(etime(clock,startclock)));
@@ -191,7 +209,7 @@ end
 
 
 if getstimuli
-BARIMAGES{t,i}=Screen('GetImage', scr.window);
+BARIMAGES{i,t}=Screen('GetImage', scr.window);
 else
 end
 log_txt=sprintf('Flip at Position %f at %s',trial.locations(i),num2str(etime(clock,startclock)));
@@ -206,5 +224,11 @@ fprintf(log_text_fid,'%s\n',log_txt);
 
 
 end
+ end
 
 Screen('CloseAll');
+
+if getstimuli
+    MAKEBINSTIMFRAMES
+else
+end
