@@ -2,6 +2,7 @@
 %% Mode for returning stimuli.
 istest=1;
 getstimuli=1;
+mapper=0;
 %% Add paths
 
 addpath('Config','Data','Stimuli','Conditions','Conversion','Hardware');

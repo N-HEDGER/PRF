@@ -1,7 +1,7 @@
 
 %% Mode for returning stimuli.
 istest=1;
-getstimuli=1;
+getstimuli=0;
 %% Add paths
 
 addpath('Config','Data','Stimuli','Conditions','Conversion','Hardware');
@@ -45,7 +45,7 @@ filename = input(prompt,'s');
 % Spit some initial information into a text file.
 
 mkdir(strcat('Data/',filename))
-log_text=sprintf('Data/%s_log.txt',);
+log_text=sprintf('Data/%s/log.txt',filename);
 log_text_fid=fopen(log_text,'a+');
 
 

@@ -8,6 +8,8 @@ const.barlength=36;
 const.Nbars=20;
 if getstimuli
     const.Nbars=1
+elseif mapper
+    const.Nbars=10;
 else
 end
 
@@ -51,3 +53,4 @@ end
 
 % Scale for downsizing binary stimulus frames
 const.downsize=0.2;
+

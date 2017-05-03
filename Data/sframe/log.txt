@@ -1,0 +1,80 @@
+Trial 1 start at 2017              5              3             19              5      17.323436
+Flip at Position 0.000000 at 0.10236
+Flip at Position 102.000000 at 0.18485
+Flip at Position 204.000000 at 0.25201
+Flip at Position 306.000000 at 0.31831
+Flip at Position 408.000000 at 0.38686
+Flip at Position 510.000000 at 0.43427
+Flip at Position 612.000000 at 0.48345
+Flip at Position 714.000000 at 0.53295
+Flip at Position 816.000000 at 0.58433
+Flip at Position 918.000000 at 0.63329
+Flip at Position 1020.000000 at 0.68446
+Flip at Position 1122.000000 at 0.7324
+Flip at Position 1224.000000 at 0.78655
+Flip at Position 1326.000000 at 0.83752
+Flip at Position 1428.000000 at 0.88442
+Flip at Position 1530.000000 at 0.93467
+Flip at Position 1632.000000 at 0.98526
+Flip at Position 1734.000000 at 1.0336
+Flip at Position 1836.000000 at 1.0848
+Flip at Position 1938.000000 at 1.1338
+Flip at Position 2040.000000 at 1.1839
+Trial end at 1.1844
+Trial 2 start at 2017              5              3             19              5      18.511783
+Flip at Position 2040.000000 at 0.064378
+Flip at Position 1938.000000 at 0.11178
+Flip at Position 1836.000000 at 0.1635
+Flip at Position 1734.000000 at 0.21223
+Flip at Position 1632.000000 at 0.26245
+Flip at Position 1530.000000 at 0.31308
+Flip at Position 1428.000000 at 0.36331
+Flip at Position 1326.000000 at 0.41324
+Flip at Position 1224.000000 at 0.46279
+Flip at Position 1122.000000 at 0.51287
+Flip at Position 1020.000000 at 0.56044
+Flip at Position 918.000000 at 0.61551
+Flip at Position 816.000000 at 0.66577
+Flip at Position 714.000000 at 0.7102
+Flip at Position 612.000000 at 0.76206
+Flip at Position 510.000000 at 0.81242
+Flip at Position 408.000000 at 0.86118
+Flip at Position 306.000000 at 0.913
+Flip at Position 204.000000 at 0.96081
+Flip at Position 102.000000 at 1.0125
+Flip at Position 0.000000 at 1.0605
+Trial end at 1.0608
+Trial 3 start at 2017              5              3             19              5      19.574513
+Flip at Position 0.000000 at 0.047991
+Flip at Position 85.714286 at 0.10094
+Flip at Position 171.428571 at 0.14796
+Flip at Position 257.142857 at 0.20177
+Flip at Position 342.857143 at 0.24976
+Flip at Position 428.571429 at 0.30045
+Flip at Position 514.285714 at 0.34803
+Flip at Position 600.000000 at 0.3998
+Flip at Position 685.714286 at 0.44856
+Flip at Position 771.428571 at 0.50349
+Flip at Position 857.142857 at 0.55136
+Flip at Position 942.857143 at 0.60254
+Flip at Position 1028.571429 at 0.64831
+Flip at Position 1114.285714 at 0.69953
+Flip at Position 1200.000000 at 0.75
+Trial end at 0.75031
+Trial 4 start at 2017              5              3             19              5      20.326987
+Flip at Position 1200.000000 at 0.047187
+Flip at Position 1114.285714 at 0.097241
+Flip at Position 1028.571429 at 0.14704
+Flip at Position 942.857143 at 0.19712
+Flip at Position 857.142857 at 0.25097
+Flip at Position 771.428571 at 0.29546
+Flip at Position 685.714286 at 0.35013
+Flip at Position 600.000000 at 0.39993
+Flip at Position 514.285714 at 0.44829
+Flip at Position 428.571429 at 0.50349
+Flip at Position 342.857143 at 0.56894
+Flip at Position 257.142857 at 0.63588
+Flip at Position 171.428571 at 0.7014
+Flip at Position 85.714286 at 0.7527
+Flip at Position 0.000000 at 0.81408
+Trial end at 0.81437
