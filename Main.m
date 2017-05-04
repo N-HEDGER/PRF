@@ -69,11 +69,12 @@ end
 
 
 
+%% If pRF
+if mapper==0
 
-Screen('DrawText', scr.window, 'texturesloaded',scr.x_mid, scr.y_mid);
+Screen('DrawText', scr.window, 'Press button to recieve pulses',scr.x_mid, scr.y_mid);
 Textpres=Screen('Flip', scr.window,[],[]);
 KbWait(keyboard);
-
 
 
 
@@ -232,4 +233,81 @@ Screen('CloseAll');
 if getstimuli
     MAKEBINSTIMFRAMES
 else
+end
+
+%% If it is the mapper
+
+elseif mapper==1
+    Screen('DrawText', scr.window, 'Press button to recieve pulses',scr.x_mid, scr.y_mid);
+    Textpres=Screen('Flip', scr.window,[],[]);
+    KbWait(keyboard);
+    
+    
+    for t=1:length(const.conditions)
+        %     Wait for pulse
+        if istest
+        else
+            GETPULSE
+            
+        end
+        
+        %Null or real trial
+        if const.conditions (t,2)==1
+            stimpres=0;
+            tic
+            startclock=clock;
+            log_txt=sprintf('Trial %i start at %s',t,num2str(startclock));
+            fprintf(log_text_fid,'%s\n',log_txt);
+            i=0;
+            while i<(const.drawsperTR)
+                i=i+1;
+                [keyIsDown, ~,keyCode] = KbCheck(responsebox,scanlist);
+                if keyIsDown
+                    if keyCode(Responsekey)
+                        % write in log/edf
+                        log_txt = sprintf('Button press at %s',num2str(etime(clock,startclock)));
+                        fprintf(log_text_fid,'%s\n',log_txt);
+                    end
+                end
+                
+                
+                Screen('DrawTexture', scr.window,STIMULI{1,randi(const.Nbars)}, [], scr.rect,[]);
+                
+                Screen('DrawDots',scr.window,scr.mid,const.bigfixsize,const.bigfixcol,[],1);
+                Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
+                Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol,[],1);
+                stimpres=Screen('Flip', scr.window,[stimpres+(const.TR/const.drawsperTR)-slack]);
+                
+                
+            end
+        else
+            stimpres=0;
+            tic
+            startclock=clock;
+            log_txt=sprintf('Null Trial %i start at %s',t,num2str(startclock));
+            fprintf(log_text_fid,'%s\n',log_txt);
+            i=0;
+            while i<(const.drawsperTR)
+                i=i+1;
+                [keyIsDown, ~,keyCode] = KbCheck(responsebox,scanlist);
+                if keyIsDown
+                    if keyCode(Responsekey)
+                        % write in log/edf
+                        log_txt = sprintf('Button press at %s',num2str(etime(clock,startclock)));
+                        fprintf(log_text_fid,'%s\n',log_txt);
+                    end
+                end
+                
+                Screen('DrawDots',scr.window,scr.mid,const.bigfixsize,const.bigfixcol,[],1);
+                Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
+                Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol,[],1);
+                stimpres=Screen('Flip', scr.window,[stimpres+(const.TR/const.drawsperTR)-slack]);
+                
+                
+            end
+            
+        end
+        
+        
+    end
 end
