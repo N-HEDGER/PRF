@@ -1,6 +1,6 @@
 Screen('Preference', 'SkipSyncTests', 1);
 %% Mode for returning stimuli.
-istest=1;
+istest=0;
 getstimuli=0;
 mapper=1;
 %% Add paths
@@ -118,6 +118,13 @@ end
 
 
 if const.conditions (t,2)==1
+    
+    if istest
+    else
+        if mod(i,)==
+        GETPULSE
+    end
+    
 stimpres=0;
 tic
 startclock=clock;
@@ -162,8 +169,10 @@ end
 log_txt=sprintf('Flip at Position %f at %s',trial.locations(i),num2str(etime(clock,startclock)));
 fprintf(log_text_fid,'%s\n',log_txt);
 
-end
+ end
 
+ 
+      
 log_txt=sprintf('Trial end at %s',num2str(etime(clock,startclock)));
 fprintf(log_text_fid,'%s\n',log_txt);
 

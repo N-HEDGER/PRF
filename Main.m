@@ -80,7 +80,7 @@ KbWait(keyboard);
 
  for t=1:length(const.conditions)
 
-if istest
+if istest || getstimuli
 else
 GETPULSE
 end     
@@ -118,6 +118,8 @@ end
 
 
 if const.conditions (t,2)==1
+    
+
 stimpres=0;
 tic
 startclock=clock;
@@ -162,8 +164,20 @@ end
 log_txt=sprintf('Flip at Position %f at %s',trial.locations(i),num2str(etime(clock,startclock)));
 fprintf(log_text_fid,'%s\n',log_txt);
 
+if istest || getstimuli
+else
+    if mod(i,const.drawsperTR)==0 && i~=1 && i~=trial.totaldraws
+        GETPULSE
+        stimpres=0;
+    else
+    end
 end
+    
 
+ end
+
+ 
+      
 log_txt=sprintf('Trial end at %s',num2str(etime(clock,startclock)));
 fprintf(log_text_fid,'%s\n',log_txt);
 
@@ -217,8 +231,20 @@ end
 log_txt=sprintf('Flip at Position %f at %s',trial.locations(i),num2str(etime(clock,startclock)));
 fprintf(log_text_fid,'%s\n',log_txt);
 
+if istest || getstimuli
+else
+    if mod(i,const.drawsperTR)==0 && i~=1 && i~=trial.totaldraws
+        GETPULSE
+        stimpres=0;
+    else
+    end
 end
 
+
+ end
+
+
+ 
 log_txt=sprintf('Trial end at %s',num2str(etime(clock,startclock)));
 fprintf(log_text_fid,'%s\n',log_txt);
 
@@ -320,4 +346,7 @@ elseif mapper==1
 
     end
     Screen('CloseAll');
+    
+    
+    
 end
