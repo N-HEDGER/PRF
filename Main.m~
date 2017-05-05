@@ -1,8 +1,8 @@
-
+Screen('Preference', 'SkipSyncTests', 1);
 %% Mode for returning stimuli.
 istest=1;
-getstimuli=1;
-mapper=0;
+getstimuli=0;
+mapper=1;
 %% Add paths
 
 addpath('Config','Data','Stimuli','Conditions','Conversion','Hardware');
@@ -271,13 +271,17 @@ elseif mapper==1
                 end
                 
                 
-                Screen('DrawTexture', scr.window,STIMULI{2,randi(const.Nbars)}, [], trial.stimrect+[0 trial.locations(i) 0 trial.locations(i)],[]);
+                Screen('DrawTexture', scr.window,STIMULI{1,randi(const.Nbars)}, [], scr.rect,[]);
                 
                 Screen('DrawDots',scr.window,scr.mid,const.bigfixsize,const.bigfixcol,[],1);
                 Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
                 Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol,[],1);
                 stimpres=Screen('Flip', scr.window,[stimpres+(const.TR/const.drawsperTR)-slack]);
                 
+                log_txt=sprintf('Flip at at %s',num2str(etime(clock,startclock)));
+                fprintf(log_text_fid,'%s\n',log_txt);
+     
+                    
                 
             end
         else
@@ -298,17 +302,22 @@ elseif mapper==1
                     end
                 end
                 
-                
-
                 Screen('DrawDots',scr.window,scr.mid,const.bigfixsize,const.bigfixcol,[],1);
                 Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
                 Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol,[],1);
                 stimpres=Screen('Flip', scr.window,[stimpres+(const.TR/const.drawsperTR)-slack]);
                 
+                log_txt=sprintf('Flip at at %s',num2str(etime(clock,startclock)));
+                fprintf(log_text_fid,'%s\n',log_txt);
+   
                 
             end
             
         end
         
-        
+        log_txt=sprintf('Trial end at %s',num2str(etime(clock,startclock)));
+        fprintf(log_text_fid,'%s\n',log_txt);
+
     end
+    Screen('CloseAll');
+end
