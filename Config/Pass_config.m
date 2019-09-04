@@ -1,9 +1,12 @@
 % Pass config
 
+%% Vertical pass
+
 % Get centre for vertical bar pass.
 [scr.stimrectv,dh,dv] = CenterRect([0 0 const.barsize(2) const.barsize(1)], scr.rect);
 
-% The start point is 1/2 the screen +1/2 the bar width
+% Define start point. This is 1/2 the screen +1/2 the bar width from the
+% centre.
 scr.stimrectv=scr.stimrectv-[(scr.scr_sizeX/2)+(const.barsize(2)/2) 0 (scr.scr_sizeX/2)+(const.barsize(2)/2) 0];
 
 % The number of positions is the total time of the pass divided by the TR
@@ -49,12 +52,3 @@ const.locationsh=kron(const.positionvech,ones(const.drawsperTR,1));
 
 % Reshape into vector.
 const.locationsh=reshape(const.locationsh,1,const.totaldrawsh);
-
-
-
-
-
-
-
-
-

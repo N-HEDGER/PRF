@@ -1,8 +1,15 @@
 Screen('Preference', 'SkipSyncTests', 1);
 %% Mode for returning stimuli.
-istest=0;
+
+% Are we waiting for the syncbox or not?
+istest=1;
+
+% Is this for returning the binary stimulus frames?
 getstimuli=0;
-mapper=1;
+
+% Is this the mapper?
+mapper=0;
+
 %% Add paths
 
 addpath('Config','Data','Stimuli','Conditions','Conversion','Hardware');
@@ -14,7 +21,9 @@ Const_config
 %% Design
 
 Design_config
+
 %% Key
+
 Key_config
 
 %% Set up screen 
@@ -28,6 +37,14 @@ Make_bars
 %% Pass config
 
 Pass_config
+
+%% Sequence config
+
+if mapper==1
+    
+else
+Sequence_config
+end
 
 %% Syncbox config
 
@@ -50,11 +67,16 @@ log_text=sprintf('Data/%s/log.txt',filename);
 log_text_fid=fopen(log_text,'a+');
 
 
-
+% If we are just replaying the binary frames, then open a black screen.
 if getstimuli
 [scr.window, scr.rect] = Screen('OpenWindow', scr.main, [0 0 0]);
 else
-[scr.window, scr.rect] = Screen('OpenWindow', scr.main, [128 128 128]);
+    
+% Othersise open a grey screen.
+
+[scr.window, scr.rect] = Screen('OpenWindow', scr.main, [128 128 128],[]);
+
+
 end
 
 priorityLevel=MaxPriority(scr.window);
@@ -77,8 +99,9 @@ Textpres=Screen('Flip', scr.window,[],[]);
 KbWait(keyboard);
 
 
-
  for t=1:length(const.conditions)
+     
+
 
 if istest || getstimuli
 else
@@ -94,7 +117,7 @@ trial.stimrect=scr.stimrectv;
 elseif const.conditions (t,3)==1 && const.conditions (t,4)==2 && const.conditions (t,2)==1
 trial.locations=fliplr(const.locationsv);
 trial.totaldraws=const.totaldrawsv;
-trial.stimrect=scr.stimrectv
+trial.stimrect=scr.stimrectv;
 % Horizontal bar, bottom to top
 elseif const.conditions (t,3)==2 && const.conditions (t,4)==1 && const.conditions (t,2)==1
 trial.locations=(const.locationsh);
@@ -115,6 +138,7 @@ trial.stimrect=scr.stimrecth;
 end
 
 %% If real trial
+const.trialevents{t}=[];
 
 
 if const.conditions (t,2)==1
@@ -127,17 +151,33 @@ log_txt=sprintf('Trial %i start at %s',t,num2str(startclock));
 fprintf(log_text_fid,'%s\n',log_txt);
  
  i=0;
- while i<(trial.totaldraws)
-     i=i+1;
-      [keyIsDown, ~,keyCode] = KbCheck(responsebox,scanlist);
+ r=0;
+ 
+const.trialevents{t}=zeros(1,trial.totaldraws);
+
+trialisdone=0;
+ 
+ while trialisdone==0 && i<(trial.totaldraws)
+
+
+       i=i+1;
+       [keyIsDown, ~,keyCode] = KbCheck(responsebox,scanlist);
        if keyIsDown
-           if keyCode(Responsekey)
+           if keyCode(Responsekey1)
                % write in log/edf
-              log_txt = sprintf('Button press at %s',num2str(etime(clock,startclock)));
-               fprintf(log_text_fid,'%s\n',log_txt);
+%               log_txt = sprintf('Button press at %s',num2str(etime(clock,startclock)));
+%                fprintf(log_text_fid,'%s\n',log_txt);
+               const.trialevents{t}(i)=1;
+               
+           elseif keyCode(Responsekey2)
+%                log_txt = sprintf('Button press at %s',num2str(etime(clock,startclock)));
+%                fprintf(log_text_fid,'%s\n',log_txt);
+               const.trialevents{t}(i)=2;
+
           end
        end
-%  
+       
+       
 
 if const.conditions (t,3)==1
 Screen('DrawTexture', scr.window,STIMULI{1,randi(const.Nbars)}, [], trial.stimrect+[trial.locations(i) 0 trial.locations(i) 0],[]);
@@ -145,16 +185,19 @@ else
 Screen('DrawTexture', scr.window,STIMULI{2,randi(const.Nbars)}, [], trial.stimrect+[0 trial.locations(i) 0 trial.locations(i)],[]);
 end
 
-Screen('DrawDots',scr.window,scr.mid,const.bigfixsize,const.bigfixcol,[],1);
-Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
-Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol,[],1);
 
 
 if getstimuli
 stimpres=Screen('Flip', scr.window,[]);
 else
+    
+Screen('DrawDots',scr.window,scr.mid,const.bigfixsize,const.bigfixcol,[],1);
+Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
+
+Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol{binary_fix_sequence{t}(i)+1},[],1);    
 stimpres=Screen('Flip', scr.window,[stimpres+(const.TR/const.drawsperTR)-slack]);
 end
+
 
 
 if getstimuli
@@ -173,11 +216,24 @@ else
     end
 end
     
+  end
+  
+trialisdone=1;
+%   
 
- end
+% end   
+%       
+%  log_txt = sprintf('Button press at %s',num2str(etime(clock,startclock)));
+%           fprintf(log_text_fid,'%s\n',log_txt);
+%           const.trialevents{t}(r)=keyCode(Responsekey);
+%           r=r+1;
 
  
-      
+  
+
+
+ 
+
 log_txt=sprintf('Trial end at %s',num2str(etime(clock,startclock)));
 fprintf(log_text_fid,'%s\n',log_txt);
 
@@ -202,6 +258,7 @@ fprintf(log_text_fid,'%s\n',log_txt);
                % write in log/edf
               log_txt = sprintf('Button press at %s',num2str(etime(clock,startclock)));
                fprintf(log_text_fid,'%s\n',log_txt);
+               const.trialevents{t}(i)=1;
           end
        end
 %  
@@ -214,7 +271,7 @@ fprintf(log_text_fid,'%s\n',log_txt);
 
 Screen('DrawDots',scr.window,scr.mid,const.bigfixsize,const.bigfixcol,[],1);
 Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
-Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol,[],1);
+Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol{binary_fix_sequence{t}(i)+1},[],1);
 
 
 if getstimuli
@@ -301,7 +358,7 @@ elseif mapper==1
                 
                 Screen('DrawDots',scr.window,scr.mid,const.bigfixsize,const.bigfixcol,[],1);
                 Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
-                Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol,[],1);
+                Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol{1},[],1);
                 stimpres=Screen('Flip', scr.window,[stimpres+(const.TR/const.drawsperTR)-slack]);
                 
                 log_txt=sprintf('Flip at at %s',num2str(etime(clock,startclock)));
@@ -330,7 +387,7 @@ elseif mapper==1
                 
                 Screen('DrawDots',scr.window,scr.mid,const.bigfixsize,const.bigfixcol,[],1);
                 Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
-                Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol,[],1);
+                Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol{1},[],1);
                 stimpres=Screen('Flip', scr.window,[stimpres+(const.TR/const.drawsperTR)-slack]);
                 
                 log_txt=sprintf('Flip at at %s',num2str(etime(clock,startclock)));

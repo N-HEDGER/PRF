@@ -12,7 +12,7 @@ if mapper==0
     const.dir=[1,1,1,2,1,2,2];
     const.conditions=horzcat(const.istrial',const.orientation',const.dir');
     const.conditions=GenerateEventTable(const.conditions,const.nreps,1);
-    
+    const.trialevents=cell(1,length(const.conditions));
     
     if istest
         const.conditions=const.conditions(const.conditions(:,2)==1,:);

@@ -4,10 +4,16 @@ scr.main = max(Screen('Screens'));
 scr.x_mid = (scr.scr_sizeX/2.0);
 scr.y_mid = (scr.scr_sizeY/2.0);
 scr.mid = [scr.x_mid,scr.y_mid];
+
+% Vertical size of screen.
 scr.dispsize=46;
+
+% Viewing distance
 scr.vd=80;
 
 scr.rect=Screen(scr.main,'Rect');
+
+
 
 visang_screen= 2 * atan(scr.dispsize/2/scr.vd);
 
