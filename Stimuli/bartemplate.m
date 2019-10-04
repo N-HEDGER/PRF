@@ -1,50 +1,52 @@
-Tapered2 = [Tapered,Taperedbl,bn.Tapered];
+function [bar] = makefacebar(stim,barwidth,barlength,vd,xres,dispx);
 
-for i=1:length(Tapered2)
-Tapered2{i} = edgetaper(Tapered2{i},PSF);
-end
+[len]=round(visang2pix(barlength,barlength,vd,xres,dispx));
+[width]=round(visang2pix(barwidth,barwidth,vd,xres,dispx));
 
+width=width(1);
+len=len(1);
 
-desired_length=1400;
-numsquaresW=1;
-
-desired_width=300;
 
 horzbar=0;
 bar2=cell(1,1);
-for b=1:10
+numsquaresW=1;
 
-unit_size=desired_width/numsquaresW;
+unit_size=width/numsquaresW;
 
-numsquaresL=round(desired_length/unit_size);
+numsquaresL=round(len/unit_size);
+
+
 
 
 if horzbar==1;
 k=cell(numsquaresW,numsquaresL);
 for i=1:numsquaresW
     for j=1:numsquaresL
-k{i,j}=makefacebar(Tapered2,desired_width,desired_width,randi([1,2]),1);
+k{i,j}=makefacebar(stim,width,width,randi([1,2]),1);
     end    
 end
 
 
 bar=cell2mat(k);
 
-bar2{b}=imresize(bar,[desired_width,NaN]);
+bar2=imresize(bar,[width,NaN]);
 elseif horzbar==0;
 
     k2=cell(numsquaresL,numsquaresW);
+    
+    
+    
     for i=1:numsquaresW
         for j=1:numsquaresL
-            k2{j,i}=makefacebar(Tapered2,desired_width,desired_width,randi([1,2]),1);
+            k2{j,i}=makefacebar(stim,width,width,randi([1,2]),1);
         end
     end
     
 bar=cell2mat(k2);
 
-bar2{b}=imresize(bar,[NaN,desired_width]);
+bar2=imresize(bar,[NaN,width]);
 end
 
 
 end
-close all
+

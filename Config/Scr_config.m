@@ -18,3 +18,10 @@ scr.rect=Screen(scr.main,'Rect');
 visang_screen= 2 * atan(scr.dispsize/2/scr.vd);
 
 scr.visang_deg_screen = visang_screen * (180/pi);
+
+
+
+
+gridsizepix=visang2pix(const.const.displaysize,const.const.displaysize,scr.scr_sizeX,scr.dispsize);
+
+gridsizepix=round(gridsizepix(1));

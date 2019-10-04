@@ -2,6 +2,10 @@
 
 %% Bar properties
 
+
+const.displaysize=15;
+
+
 % Size of elements within the bar
 const.elementsize=1;
 

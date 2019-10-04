@@ -85,8 +85,8 @@ slack = Screen('GetFlipInterval', scr.window);
 
 STIMULI=cell(2,const.Nbars);
 for i=1:const.Nbars
-    STIMULI{1,i}=Screen('MakeTexture',scr.window,im2uint8(bars{i}));
-    STIMULI{2,i}=Screen('MakeTexture',scr.window,imrotate(im2uint8(bars{i}),90));
+    STIMULI{1,i}=Screen('MakeTexture',scr.window,im2uint8(bars{1,i}));
+    STIMULI{2,i}=Screen('MakeTexture',scr.window,im2uint8(bars{2,i}));
 end
 
 
