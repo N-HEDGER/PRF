@@ -2,9 +2,8 @@
 
 %% Bar properties
 
-
 const.displaysize=15;
-
+const.opacity=1;
 
 % Size of elements within the bar
 const.elementsize=1;
@@ -48,16 +47,16 @@ const.smallerfixsize=10;
 %% Bar pass properties
 
 % The duration of a horizontal bar pass
-const.h_period=36;
+const.h_period=32;
 
 % The duration of a vertical bar pass
-const.v_period=48;
+const.v_period=32;
 
 % The TR (also the duration that the bar is in one place, since these are synchronised). 
 const.TR=2;
 
 % The number of updates per TR.
-const.drawsperTR=4;
+const.drawsperTR=30;
 
 
 % If we are just retriving the binary stimulus frames, then we only want 1
