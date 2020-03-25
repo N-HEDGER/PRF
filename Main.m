@@ -1,13 +1,21 @@
-Screen('Preference', 'SkipSyncTests', 1);
-%% Mode for returning stimuli.
+% Main.m - Main function that drives the experiment
 
-% Are we waiting for the syncbox or not?
+Screen('Preference', 'SkipSyncTests', 1);
+
+%% General startup
+
+ % This determines whether or not we are waiting for a syncbox to
+% synchronise presentation.
+
 istest=1;
 
-% Is this for returning the binary stimulus frames?
+% Do we also want to return a set of binary stimulus frames for use in
+% analysis software like analyze prf or popeye? 
+
 getstimuli=0;
 
-% Is this the mapper?
+% Is this the mapper? Here I define 'mapper' as a stimulus that fills the
+% entire fov.
 mapper=0;
 
 %% Add paths
@@ -38,6 +46,11 @@ Make_bars
 
 Pass_config
 
+%% Subject config
+
+Sbj_config
+
+
 %% Sequence config
 
 if mapper==1
@@ -57,16 +70,6 @@ end
 
 
 
-prompt='subject filename?';
-filename = input(prompt,'s');
-
-% Spit some initial information into a text file.
-
-mkdir(strcat('Data/',filename))
-log_text=sprintf('Data/%s/log.txt',filename);
-log_text_fid=fopen(log_text,'a+');
-
-
 % If we are just replaying the binary frames, then open a black screen.
 if getstimuli
 [scr.window, scr.rect] = Screen('OpenWindow', scr.main, [0 0 0]);
@@ -75,8 +78,8 @@ else
 % Othersise open a grey screen.
 
 [scr.window, scr.rect] = Screen('OpenWindow', scr.main, [128 128 128],[]);
-
-
+xstim=Screen('MakeTexture',scr.window,im2uint8(rgb));
+ Screen('BlendFunction', scr.window, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 end
 
 priorityLevel=MaxPriority(scr.window);
@@ -190,12 +193,23 @@ end
 if getstimuli
 stimpres=Screen('Flip', scr.window,[]);
 else
+ 
+    
     
 Screen('DrawDots',scr.window,scr.mid,const.bigfixsize,const.bigfixcol,[],1);
 Screen('DrawDots',scr.window,scr.mid,const.smallfixsize,const.smallfixcol,[],1);
 
-Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol{binary_fix_sequence{t}(i)+1},[],1);    
+Screen('DrawDots',scr.window,scr.mid,const.smallerfixsize,const.smallerfixcol{binary_fix_sequence{t}(i)+1},[],1); 
+ 
+
+if istest
+Screen('DrawTexture', scr.window,xstim, [],[]);
+Screen('FrameRect',scr.window,[],[left, top, right, bottom])
+Screen('FrameOval', scr.window, [], [left, top, right, bottom]);
+end
+
 stimpres=Screen('Flip', scr.window,[stimpres+(const.TR/const.drawsperTR)-slack]);
+
 end
 
 

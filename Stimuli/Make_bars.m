@@ -1,4 +1,5 @@
-load('allfaceims')
+% load('allfaceims')
+load('stimuli.mat');
 
 
 if mapper==0
@@ -12,8 +13,10 @@ h=waitbar(0,'Creating Stimuli...');
 %         bars{bar}=colnoisebar(const.elementsize,scr.visang_deg_screen,const.barwidth,scr.vd,scr.scr_sizeX,scr.dispsize,0);
         
         
-        bars{1,bar}=makefacebar(Tapered2,const.barwidth,const.barlength,scr.vd,scr.scr_sizeX,scr.dispsize,0);
-        bars{2,bar}=makefacebar(Tapered2,const.barwidth,const.barlength,scr.vd,scr.scr_sizeX,scr.dispsize,1);
+%         bars{1,bar}=makefacebar(Tapered2,const.barwidth,const.barlength,scr.vd,scr.scr_sizeX,scr.dispsize,0);
+%         bars{2,bar}=makefacebar(Tapered2,const.barwidth,const.barlength,scr.vd,scr.scr_sizeX,scr.dispsize,1);
+         bars{1,bar}=makekaybar(patterns,const.barwidth,const.barlength,scr.vd,scr.scr_sizeX,scr.dispsize,grid_sizeX,grid_sizeY,0);
+         bars{2,bar}=makekaybar(patterns,const.barwidth,const.barlength,scr.vd,scr.scr_sizeX,scr.dispsize,grid_sizeX,grid_sizeY,1);
 
         
         
